@@ -16,6 +16,10 @@ app.get("/", function(request, response){
     response.sendfile("./public/home.html");
 });
 
+app.get("/survey", function(request, response){
+    response.sendfile("./public/survey.html");
+});
+
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
