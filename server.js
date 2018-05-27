@@ -12,4 +12,10 @@ const friendModule = require("./app/data/friends.js"); //Stackoverflow states th
 var app = express();
 const PORT = 4000;
 
-console.log(friendModule.friendArray);
+app.get("/", function(request, response){
+    response.sendfile("./public/home.html");
+});
+
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
