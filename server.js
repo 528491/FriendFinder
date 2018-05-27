@@ -5,6 +5,9 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 //Our Modules
 const friendModule = require("./app/data/friends.js"); //Stackoverflow states that Node does not yet support ES6 Import statements
 
@@ -18,6 +21,10 @@ app.get("/", function(request, response){
 
 app.get("/survey", function(request, response){
     response.sendfile("./public/survey.html");
+});
+
+app.get("/api/friends",function(request, response){
+    response.json(friendModule.friendArray);
 });
 
 app.listen(PORT, function() {
