@@ -30,6 +30,39 @@ app.get("/api/friends",function(request, response){
     response.json(friendModule.friendArray);
 });
 
+app.get("/whoIsMyFriend/:name", function(request, response){
+    //Taking in the name parameter so that we do not return self as the best match
+    var resHTML = "<h1>Your Best Match Is...</h1>";
+    
+    //Get the id of the person submitting this request based on their name
+    var friend;
+    for (friendIndex in friendModule.friendArray){
+        var possibleFriend = friendModule.friendArray[friendIndex];
+        if (name == possibleFriend.name){
+            friend = possibleFriend;
+        }
+    }
+    
+    //Calculate the best match based on the masterful algorithm
+    var currentBestMatch;
+    
+    var runningMaxDifference = 1000000;
+    var currentDifference = runningMaxDifference;
+    for (candidateIndex in friendModule.friendArray){
+        
+        var candidate = friendModule.friendArray[candidateIndex];
+        var candidateScores = candidate.scores;
+        var friendScores = friend.scores;
+
+        for (var i=0; i< 10; i++){
+            
+        }
+    }
+    
+    
+    response.send(resHTML);
+});
+
 app.post("/api/new", function(request, response){
     var newFriend = request.body;
     //Process the input from the form and convert the text input into numerical values

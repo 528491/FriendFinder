@@ -172,7 +172,11 @@
             $.post("http://localhost:4000/api/new", newFriend).done(function(data){
                 //console.log(data);
 
-                //Alert, with your best match
+                //Display your best match
+                //window.location = "https://www.google.com/search?q=nobody&oq=nobody&aqs=chrome..69i57j0l5.1318j0j7&sourceid=chrome&ie=UTF-8";
+                var url = "http://localhost:4000/whoIsMyFriend/" + newFriend.name
+                window.location = url;
+            
             });
         });
 
