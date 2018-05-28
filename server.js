@@ -10,7 +10,7 @@ const friendModule = require("./app/data/friends.js"); //Stackoverflow states th
 
 //App Setup and Initialization
 var app = express();
-const PORT = 80;
+const PORT = 4000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -30,15 +30,17 @@ app.get("/api/friends",function(request, response){
     response.json(friendModule.friendArray);
 });
 
-app.get("/whoIsMyFriend/:name", function(request, response){
+app.get("/whoIsMyFriend/:name?", function(request, response){
     //Taking in the name parameter so that we do not return self as the best match
     var resHTML = "<h1>Your Best Match Is...</h1>";
     
     //Get the id of the person submitting this request based on their name
-    var friend;
+    let friend;
     for (friendIndex in friendModule.friendArray){
         var possibleFriend = friendModule.friendArray[friendIndex];
-        if (request.name == possibleFriend.name){
+        console.log("Name Params: " + request.params.name);
+        console.log("Possible Friend Name: " + possibleFriend.name);
+        if (request.params.name == possibleFriend.name){
             friend = possibleFriend;
         }
     }
