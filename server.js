@@ -10,7 +10,7 @@ const friendModule = require("./app/data/friends.js"); //Stackoverflow states th
 
 //App Setup and Initialization
 var app = express();
-const PORT = 4000;
+const PORT = 80;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -38,7 +38,7 @@ app.get("/whoIsMyFriend/:name", function(request, response){
     var friend;
     for (friendIndex in friendModule.friendArray){
         var possibleFriend = friendModule.friendArray[friendIndex];
-        if (name == possibleFriend.name){
+        if (request.name == possibleFriend.name){
             friend = possibleFriend;
         }
     }
@@ -46,19 +46,30 @@ app.get("/whoIsMyFriend/:name", function(request, response){
     //Calculate the best match based on the masterful algorithm
     var currentBestMatch;
     
-    var runningMaxDifference = 1000000;
-    var currentDifference = runningMaxDifference;
+    var runningMinDifference = 1000000;
+    var currentDifference = runningMinDifference;
     for (candidateIndex in friendModule.friendArray){
         
         var candidate = friendModule.friendArray[candidateIndex];
         var candidateScores = candidate.scores;
         var friendScores = friend.scores;
 
+        var totalDifference = 0;
         for (var i=0; i< 10; i++){
-            
+            candidateScore = candidateScores[i];
+            friendScore = friendScores[i];
+            var difference = Math.abs(friendScore - candidateScore);
+            totalDifference = totalDifference + difference;
+        }
+
+        if (totalDifference < runningMinDifference){
+            runningMinDifference = totalDifference;
+            currentBestMatch = candidate;
         }
     }
-    
+
+    resHTML = resHTML + `<h2>Name: ${currentBestMatch.name}</h2>`;
+    resHTML = resHTML + `<img src=${currentBestMatch.image}/>`
     
     response.send(resHTML);
 });
