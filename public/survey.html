@@ -6,6 +6,7 @@
     <title>FriendFinder Survey</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -27,7 +28,7 @@
         
             <h2>Question 1</h2>
             <div class="form-group">    
-                <label for="question1">Question 1</label>
+                <label for="question1">Your mind is always buzzing with unexplored ideas and plans.</label>
                 <select class="form-control" id="question1">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -39,7 +40,7 @@
 
             <h2>Question 2</h2>
             <div class="form-group">    
-                <label for="question1">Question 2</label>
+                <label for="question1">Generally speaking, you rely more on your experience than your imagination.</label>
                 <select class="form-control" id="question2">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -51,7 +52,7 @@
 
             <h2>Question 3</h2>
             <div class="form-group">    
-                <label for="question1">Question 3</label>
+                <label for="question1">You find it easy to stay relaxed and focused even when there is some pressure.</label>
                 <select class="form-control" id="question3">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -63,7 +64,7 @@
 
             <h2>Question 4</h2>
             <div class="form-group">    
-                <label for="question1">Question 4</label>
+                <label for="question1">You rarely do something just out of sheer curiosity.</label>
                 <select class="form-control" id="question4">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -75,7 +76,7 @@
 
             <h2>Question 5</h2>
             <div class="form-group">    
-                <label for="question1">Question 5</label>
+                <label for="question1">People can rarely upset you.</label>
                 <select class="form-control" id="question5">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -87,7 +88,7 @@
 
             <h2>Question 6</h2>
             <div class="form-group">    
-                <label for="question1">Question 6</label>
+                <label for="question1">It is often difficult for you to relate to other people’s feelings.</label>
                 <select class="form-control" id="question6">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -99,7 +100,7 @@
 
             <h2>Question 7</h2>
             <div class="form-group">    
-                <label for="question1">Question 7</label>
+                <label for="question1">In a discussion, truth should be more important than people’s sensitivities.</label>
                 <select class="form-control" id="question7">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -111,7 +112,7 @@
 
             <h2>Question 8</h2>
             <div class="form-group">    
-                <label for="question1">Question 8</label>
+                <label for="question1">You rarely get carried away by fantasies and ideas.</label>
                 <select class="form-control" id="question8">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -123,7 +124,7 @@
 
             <h2>Question 9</h2>
             <div class="form-group">    
-                <label for="question1">Question 9</label>
+                <label for="question1">You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</label>
                 <select class="form-control" id="question9">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -135,7 +136,7 @@
 
             <h2>Question 10</h2>
             <div class="form-group">    
-                <label for="question1">Question 10</label>
+                <label for="question1">You feel more energetic after spending time with a group of people.</label>
                 <select class="form-control" id="question10">
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
@@ -145,10 +146,37 @@
                 </select>
             </div>
 
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="button" id="addFriendButton" class="btn btn-primary">Submit</button>
     
         </form>
 
     </div>
+
+    <script type="text/javascript">
+        $("#addFriendButton").on("click", function(){
+            var newFriend = {
+                name: $("#nameInput").val().trim(),
+                imageURL: $("#imageURLInput").val().trim(),
+                question1: $("#question1").val().trim(),
+                question2: $("#question2").val().trim(),
+                question3: $("#question3").val().trim(),
+                question4: $("#question4").val().trim(),
+                question5: $("#question5").val().trim(),
+                question6: $("#question6").val().trim(),
+                question7: $("#question7").val().trim(),
+                question8: $("#question8").val().trim(),
+                question9: $("#question9").val().trim(),
+                question10: $("#question10").val().trim()
+            };
+
+            $.post("http://localhost:4000/api/new", newFriend).done(function(data){
+                //console.log(data);
+
+                //Alert, with your best match
+            });
+        });
+
+
+    </script>
 </body>
 </html>
